@@ -12,6 +12,8 @@
 .idea
 *.iml
 
+# Dont upload databases!
+*.sqlite
 
 # File-based project format
 *.iws

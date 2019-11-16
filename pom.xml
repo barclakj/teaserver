@@ -49,6 +49,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.27.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -57,7 +63,28 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <changeLogFile>src/main/sql/tea_changelog.xml</changeLogFile>
+                    <driver>org.sqlite.JDBC</driver>
+                    <url>jdbc:sqlite:./target/tea_test_db.sqlite</url>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <dropFirst>true</dropFirst>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 
